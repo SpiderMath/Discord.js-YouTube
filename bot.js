@@ -1,3 +1,4 @@
+require("dotenv").config();
 const chalk = require("chalk");
 const Discord = require("discord.js");
 const bot = new Discord.Client({
@@ -6,8 +7,7 @@ const bot = new Discord.Client({
 	},
 	disableMentions: "everyone",
 });
-const prefix = "`";
-
+const { PREFIX: prefix, TOKEN: token } = process.env;
 
 bot.on("ready", () => {
 	console.log(chalk.green("The bot has logged in!"));
@@ -45,4 +45,4 @@ bot.on("message", (message) => {
 	}
 });
 
-bot.login("Nzg5NDQyNDQxNjkwMjE4NTE2.X9yHkQ.vdHsGYAbS8HnIFhYOkdcUvz7NE0");
+bot.login(token);
