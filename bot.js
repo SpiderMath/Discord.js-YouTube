@@ -15,7 +15,7 @@ bot.on("ready", () => {
 
 bot.on("message", (message) => {
 	if(message.author.bot) return;
-	if(message.content.startsWith(prefix)) return;
+	if(!message.content.startsWith(prefix)) return;
 
 	const stuff = message.content.slice(prefix.length);
 	const args = stuff.trim().split(/ +/g);
@@ -26,6 +26,23 @@ bot.on("message", (message) => {
 		return message.channel.send("Pong!");
 	}
 
+	else if(command === "coinflip") {
+		return message.channel.send(`On tossing the coin, the coin landed on ${(Math.random() < 0.5) ? "Heads" : "Tails"}`);
+	}
+
+	else if(command === "8ball") {
+		if(!args[1]) return message.channel.send("Please provide a question my child");
+		const answers = [
+			"It is certain",
+			"You may rely on it",
+			"Ask again later",
+			"Concentrate and ask again",
+			"My reply is no",
+			"My sources say no",
+		];
+
+		return message.channel.send(answers[Math.floor(Math.random() * answers.length)]);
+	}
 });
 
-bot.login("Nzg5NDQyNDQxNjkwMjE4NTE2.X9yHkQ.VVux55ghdll_HlBpfHrod3QDaMM");
+bot.login("Nzg5NDQyNDQxNjkwMjE4NTE2.X9yHkQ.vdHsGYAbS8HnIFhYOkdcUvz7NE0");
