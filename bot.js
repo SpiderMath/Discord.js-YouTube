@@ -7,6 +7,7 @@ const bot = new Discord.Client({
 	},
 	disableMentions: "everyone",
 });
+const commonTags = require("common-tags");
 const { PREFIX: prefix, TOKEN: token } = process.env;
 
 bot.on("ready", () => {
@@ -19,7 +20,7 @@ bot.on("message", (message) => {
 
 	const stuff = message.content.slice(prefix.length);
 	const args = stuff.trim().split(/ +/g);
-	const command = args[0].toLowerCase();
+	const command = args.shift().toLowerCase();
 
 
 	if(command === "ping") {
@@ -42,6 +43,15 @@ bot.on("message", (message) => {
 		];
 
 		return message.channel.send(answers[Math.floor(Math.random() * answers.length)]);
+	}
+
+	else if(command === "mad-libs") {
+		const base = commonTags.stripIndents`
+			${args[0]} was a young boy when he fought ${args[1]} to get his chocolate back even though ${args[1]} was elder to ${args[0]} by more than 5 years.
+		`;
+		if(!args[1]) return message.channel.send("You did not provide enough arguments.");
+
+		return message.channel.send(base);
 	}
 });
 
